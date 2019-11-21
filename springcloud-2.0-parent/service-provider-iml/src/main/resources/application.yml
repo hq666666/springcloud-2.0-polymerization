@@ -1,0 +1,16 @@
+server:
+  port: 8001
+  tomcat:
+    max-threads: 10
+spring:
+  application:
+    name: provider-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8100/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    lease-renewal-interval-in-seconds: 1 #向eureka服务端发送心跳包间隔时间(默认：30s)
+    lease-expiration-duration-in-seconds: 2  #自eureka服务器接收到上一次心跳以来可以等待的时间（以秒为单位），之后它才能从其视图中删除该实例，并通过禁止向该实例的流量进行操作(默认：90s)

@@ -1,0 +1,28 @@
+server:
+  port: 81
+spring:
+  application:
+    name: zuul-gateway
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8100/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+zuul:
+  routes:
+    #当客户端请求127.0.0.1:80/以下的路径就会转发到具体的服务上
+    #zuul默认整合了ribbon所以使用服务别名(不需要担心该服务是否是集群搭建的)
+    #api-a/api-b是自定义的服务规则
+    api-a:
+      path: /provider/** #客户端请求的路径
+      serviceId:  provider-service #路由具体服务别名
+    api-b:
+      path: /consumer/** #客户端请求的路径
+      serviceId: consumer-service
+
+ribbon:
+  ###指的是建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的时间。
+  ReadTimeout: 5000
+  ###指的是建立连接后从服务器读取到可用资源所用的时间。
+  ConnectTimeout: 5000
